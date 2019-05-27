@@ -2,7 +2,7 @@
 namespace Lingyuyizhipao;
 /**
  * @property Voice static $_instance
- * @property \AipSpeech $Ai
+ * @property AipSpeech $Ai
  */
 
 class Voice
@@ -24,7 +24,7 @@ class Voice
     {
         if (!self::$_instance) {
             self::$_instance = new self();
-            self::$_instance->Ai = new \AipSpeech(self::APP_ID,self::API_KEY,self::SECRET_KEY);
+            self::$_instance->Ai = new AipSpeech(self::APP_ID,self::API_KEY,self::SECRET_KEY);
         }
         return self::$_instance;
     }

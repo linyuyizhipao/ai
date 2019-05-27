@@ -15,9 +15,7 @@
 * the License.
 */
 
-require_once 'AipHttpClient.php';
-require_once 'AipBCEUtil.php';
-require_once 'AipImageUtil.php';
+namespace Lingyuyizhipao\lib;
 
 /**
  * Aip Base 基类

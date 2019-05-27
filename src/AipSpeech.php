@@ -15,8 +15,8 @@
 * the License.
 */
 
-require_once 'lib/AipBase.php';
-
+namespace Lingyuyizhipao;
+use Lingyuyizhipao\lib\AipBase;
 /**
  * 百度语音
  */
