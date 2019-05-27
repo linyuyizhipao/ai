@@ -1,17 +1,20 @@
 <?php
 namespace Lingyuyizhipao;
 /**
+ * dosc https://ai.baidu.com/docs/#/ASR-Online-PHP-SDK/top
  * @property Voice static $_instance
  * @property AipSpeech $Ai
  */
 
 class Voice
 {
-
     // 你的 APPID AK SK
     const APP_ID = '16334530';
     const API_KEY = 'VAG19BcZHkwpeLFSo2DOsAgG';
     const SECRET_KEY = 'vKil1zFaiHRLPWHxzwdPaBOgSz5zIHPE';
+    const RATE_VAL = 8000; //采样率，16000，固定值。但是我必须设置未8000才能正常解析我们的音频
+    const DEV_PID = 1537; //不填写lan参数生效，都不填写，默认1537（普通话 输入法模型），dev_pid参数见本节开头的表格
+    const DEFAULT_VOICE_EXT = 'amr'; //默认的音频文件
 
 
     private static $_instance;
@@ -47,15 +50,18 @@ class Voice
     }
      *
      *
-     *
-    * @param  string $_instance
+     * amr转换成文字
+    * @param  string $filePath 音频文件路径，可以是http的地址，也可以是绝对路径
     */
-    public function voiceTranslate()
+    public function amrVoiceTranslate($filePath,$ext = self::DEFAULT_VOICE_EXT)
     {
         $client = $this->Ai;
-        $e = file_get_contents('http://prwf6oj8u.bkt.clouddn.com/2019_05_24_15_53_03u7h32.amr');
-        $res = $client->asr($e, 'amr', 8000, array(
-            'dev_pid' => 1537,
+        $e = @file_get_contents($filePath);
+        if(empty($e))
+           return false;
+
+        $res = $client->asr($e, $ext, self::RATE_VAL, array(
+            'dev_pid' => self::DEV_PID,
         ));
         if(!empty($res['err_no'])){
             $this->error[] = $res['err_msg']??"api异常";
